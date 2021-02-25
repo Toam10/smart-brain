@@ -1,0 +1,18 @@
+.navigation-right-nav {
+	display: grid;
+	justify-content: end;
+}
+
+.navigation-peregraph {
+	background-color: inherit;
+	color: black;
+	font-size: 1.5rem;
+	font-weight: lighter;
+	margin: 10px;
+	padding: 1rem;
+	border-style: solid;
+	border-color: black;
+	border-width: 0.5px;
+	border-radius: 1rem;
+	cursor: pointer;
+}

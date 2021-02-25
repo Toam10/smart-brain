@@ -1,0 +1,69 @@
+.container-circumference {
+	width: 30%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	box-shadow: 4px 4px 8px 0 rgb(0 0 0 / 20%);
+	border-radius: 5rem;
+	border-color: rgba(0, 0, 0, 0.1);
+	border-style: solid;
+	border-width: 1px;
+	display: flex;
+	justify-content: center;
+}
+
+@media screen and (min-width: 30em) and (max-width: 60em) {
+	.container-circumference {
+		width: 50%;
+	}
+}
+
+.register-container {
+	display: grid;
+	justify-items: center;
+	padding: 2rem;
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.fieldset-border {
+	border: solid 1px rgba(0, 0, 0, 0.3);
+}
+
+.input-sizing {
+	margin-top: 2rem;
+	box-sizing: border-box;
+}
+
+.header {
+	font-size: 3rem;
+	color: inherit;
+}
+
+.register-label {
+	font-size: 2rem;
+	line-height: 1.5;
+	font-weight: lighter;
+	display: block;
+}
+
+.register-input {
+	padding: 0.5rem;
+	background-color: transparent;
+	font-weight: lighter;
+	font-size: 1.2em;
+	border-style: solid;
+	border-width: 1px;
+	overflow: visible;
+}
+
+.signup-button{
+	background-color: inherit;
+	font-size: 1.5rem;
+	border-radius: 1rem;
+	margin-top: 1rem;
+	border-style: solid;
+	border-color: rgba(0, 50, 50, 0.2);
+	padding: 1rem;
+	
+}
