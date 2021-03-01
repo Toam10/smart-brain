@@ -74,7 +74,6 @@ class SignIn extends Component {
 	}
 }
 const mapStateToProps = (state) => {
-	console.log(state.requsetBoxSizeReducer);
 	return {
 		email: state.requsetSigninReducer.email,
 		password: state.requsetSigninReducer.password,

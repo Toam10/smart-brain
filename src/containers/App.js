@@ -82,7 +82,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-	console.log(state.requsetBoxSizeReducer);
 	return {
 		searchInput: state.searchInputReducer.searchInput,
 		isPending: state.requsetBoxSizeReducer.isPending,

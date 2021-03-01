@@ -64,7 +64,6 @@ export const requestRegister = (email, passowrd, name, onRouteChangeFunc) => (di
 };
 
 export const setSearchInput = (text) => {
-	console.log(text);
 	return {
 		type: ON_CHANGE_SEARCH_INPUT,
 		payload: text,

@@ -75,7 +75,6 @@ class Register extends Component {
 	}
 }
 const mapStateToProps = (state) => {
-	console.log(state.requsetBoxSizeReducer);
 	return {
 		registerEmail: state.registerReducer.registerEmail,
 		registerPassword: state.registerReducer.registerPassword,
