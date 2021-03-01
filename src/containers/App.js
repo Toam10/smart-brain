@@ -11,7 +11,7 @@ import { FaceRecognition } from "../Components/FaceRecognition/FaceRecognition";
 import SignIn from "../Components/SignIn/SignIn";
 import Register from "../Components/Register/Register";
 
-import { setSearchInput, fetchBoxRequest } from "../actions.js";
+import { setSearchInput, fetchBoxRequest, onRouteChange } from "../actions.js";
 
 const particlesOptions = {
 	particles: {
@@ -60,7 +60,7 @@ class App extends Component {
 			<div className='flex-container'>
 				<div className='App'>
 					<Particles className='particles' params={particlesOptions} />
-					<Navigation onRouteChange={changeRouteTo} route={route} />
+					<Navigation changeRouteTo={changeRouteTo} route={route} />
 					{this.props.route === "home" && (
 						<div>
 							<Logo />
@@ -96,6 +96,7 @@ const mapDispatchToProps = (dispatch) => {
 		onSearchInputChange: (event) => dispatch(setSearchInput(event.target.value)),
 		boxRequest: (input, id, calculateFunc) =>
 			dispatch(fetchBoxRequest(input, id, calculateFunc)),
+		changeRouteTo: (route) => dispatch(onRouteChange(route)),
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);
