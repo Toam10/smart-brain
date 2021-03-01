@@ -1,7 +1,7 @@
 import React from "react";
 import "./ImageLinkFrom.css";
 
-export const ImageLinkFrom = ({ onSubmit, onInputChange }) => {
+export const ImageLinkFrom = ({ onSubmit, onSearchInputChange }) => {
 	return (
 		<div>
 			<p className='f3'>
@@ -12,7 +12,7 @@ export const ImageLinkFrom = ({ onSubmit, onInputChange }) => {
 					<input
 						className='f4 pa2 w-70 center'
 						type='text'
-						onChange={onInputChange}
+						onChange={onSearchInputChange}
 					/>
 					<br></br>
 					<button

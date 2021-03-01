@@ -1,14 +1,36 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import App from "./containers/App";
 import reportWebVitals from "./reportWebVitals";
 import "tachyons";
 
+//================== redux setup
+import { createStore, applyMiddleware, combineReducers } from "redux";
+import { Provider } from "react-redux";
+import thunkMiddelware from "redux-thunk";
+import { createLogger } from "redux-logger";
+//=================== import Reducers
+import {
+	searchInputReducer,
+	requsetBoxSizeReducer,
+	requsetSigninReducer,
+	registerReducer,
+} from "./reducers";
+// ================== apply redux
+const logger = createLogger();
+const rootReducer = combineReducers({
+	searchInputReducer,
+	requsetBoxSizeReducer,
+	requsetSigninReducer,
+	registerReducer,
+});
+const store = createStore(rootReducer, applyMiddleware(thunkMiddelware, logger));
+
 ReactDOM.render(
-	<React.StrictMode>
+	<Provider store={store}>
 		<App />
-	</React.StrictMode>,
+	</Provider>,
 	document.getElementById("root")
 );
 
