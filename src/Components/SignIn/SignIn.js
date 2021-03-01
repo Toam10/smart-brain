@@ -1,42 +1,24 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import {
+	assignEmail,
+	assignPassword,
+	loadUser,
+	onRouteChange,
+	removeValidatorsFromState,
+	requestSignin,
+} from "../../actions";
 import "./SignIn.css";
-export class SignIn extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			signInEmail: "",
-			signInPassword: "",
-		};
-	}
-	onEmailChange = (event) => {
-		this.setState({ signInEmail: event.target.value });
-	};
-	onPasswordChange = (event) => {
-		this.setState({ signInPassword: event.target.value });
-	};
 
+class SignIn extends Component {
 	onSubmitSignIn = () => {
-		fetch("https://dry-mountain-86581.herokuapp.com/signin", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				email: this.state.signInEmail,
-				password: this.state.signInPassword,
-			}),
-		})
-			.then((response) => response.json())
-			.then((currentUser) => {
-				if (currentUser.id) {
-					this.props.onRouteChange("home");
-					this.props.loadUser(currentUser);
-				} else {
-					return console.log("this is no good");
-				}
-			});
+		const { email, password, changeRouteTo, loadCurrentUser, removeValidators, postRequestSignin} = this.props;
+		
+		postRequestSignin(email, password, changeRouteTo, loadCurrentUser, removeValidators);
 	};
 
 	render() {
-		const { onRouteChange } = this.props;
+		const { changeRouteTo, setEmail, setPassword } = this.props;
 		return (
 			<article className='container-circumference'>
 				<main className='signin-container'>
@@ -48,10 +30,11 @@ export class SignIn extends Component {
 							</label>
 							<input
 								className='signin-input'
+								value={this.props.email}
 								type='email'
 								name='email-address'
 								id='email-address'
-								onChange={this.onEmailChange}
+								onChange={setEmail}
 							/>
 						</div>
 						<div className='mv3'>
@@ -60,10 +43,11 @@ export class SignIn extends Component {
 							</label>
 							<input
 								className='signin-input'
+								value={this.props.password}
 								type='password'
 								name='password'
 								id='password'
-								onChange={this.onPasswordChange}
+								onChange={setPassword}
 							/>
 						</div>
 					</fieldset>
@@ -78,7 +62,7 @@ export class SignIn extends Component {
 					</div>
 					<div className='lh-copy mt3'>
 						<p
-							onClick={() => onRouteChange("register")}
+							onClick={() => changeRouteTo("register")}
 							className='f6 link dim black db'
 						>
 							Register
@@ -89,3 +73,28 @@ export class SignIn extends Component {
 		);
 	}
 }
+const mapStateToProps = (state) => {
+	console.log(state.requsetBoxSizeReducer);
+	return {
+		email: state.requsetSigninReducer.email,
+		password: state.requsetSigninReducer.password,
+		isPending: state.requsetSigninReducer.isPending,
+		signinSuccess: state.requsetSigninReducer.success,
+		signinError: state.requsetSigninReducer.error,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		loadCurrentUser: (user) => dispatch(loadUser(user)),
+		changeRouteTo: (route) => dispatch(onRouteChange(route)),
+		setEmail: (event) => dispatch(assignEmail(event.target.value)),
+		setPassword: (event) => dispatch(assignPassword(event.target.value)),
+		removeValidators: () => dispatch(removeValidatorsFromState()),
+		postRequestSignin: ( email, password, onRouteChangeFunc, loadCurrentUserFunc, removeValidatorsFunc) =>
+			dispatch( 
+				requestSignin( email, password, onRouteChangeFunc, loadCurrentUserFunc, removeValidatorsFunc )
+				),
+	};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

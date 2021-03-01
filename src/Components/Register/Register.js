@@ -1,45 +1,23 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addEmail, addName, addPassword, onRouteChange, requestRegister } from "../../actions";
 import "./Register.css";
 
-export class Register extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			email: "",
-			password: "",
-			name: "",
-		};
-	}
-
-	setPassword = ({ target }) => {
-		this.setState({ password: target.value });
-	};
-	setEmail = ({ target }) => {
-		this.setState({ email: target.value });
-	};
-	setName = ({ target }) => {
-		this.setState({ name: target.value });
-	};
-
+class Register extends Component {
 	submiteNewUserRequest = () => {
-		fetch("https://dry-mountain-86581.herokuapp.com/register", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				email: this.state.email,
-				password: this.state.password,
-				name: this.state.name,
-			}),
-		})
-			.then((response) => response.json())
-			.then((user) => {
-				if (user.id) {
-					return this.props.onRouteChange("signin");
-				}
-			});
+		const {
+			registerEmail,
+			registerPassword,
+			registerName,
+			changeRouteTo,
+			postRequestRegister,
+		} = this.props;
+		debugger;
+		postRequestRegister(registerEmail, registerPassword, registerName, changeRouteTo);
 	};
 
 	render() {
+		const { addEmail, addName, addPassword } = this.props;
 		return (
 			<article className='container-circumference'>
 				<main className='register-container'>
@@ -54,7 +32,7 @@ export class Register extends Component {
 								type='name'
 								name='name'
 								id='name'
-								onChange={this.setName}
+								onChange={addName}
 							/>
 						</div>
 
@@ -67,7 +45,7 @@ export class Register extends Component {
 								type='email'
 								name='email-address'
 								id='email-address'
-								onChange={this.setEmail}
+								onChange={addEmail}
 							/>
 						</div>
 						<div className='input-sizing'>
@@ -79,7 +57,7 @@ export class Register extends Component {
 								type='password'
 								name='password'
 								id='password'
-								onChange={this.setPassword}
+								onChange={addPassword}
 							/>
 						</div>
 					</fieldset>
@@ -96,3 +74,27 @@ export class Register extends Component {
 		);
 	}
 }
+const mapStateToProps = (state) => {
+	console.log(state.requsetBoxSizeReducer);
+	return {
+		registerEmail: state.registerReducer.registerEmail,
+		registerPassword: state.registerReducer.registerPassword,
+		registerName: state.registerReducer.registerName,
+		registerRequestIsPending: state.registerReducer.registerRequestIsPending,
+		registerRequestIsSuccess: state.registerReducer.registerRequestIsSuccess,
+		registerRequestIsFailed: state.registerReducer.registerRequestIsFailed,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		changeRouteTo: (route) => dispatch(onRouteChange(route)),
+		addEmail: (event) => dispatch(addEmail(event.target.value)),
+		addPassword: (event) => dispatch(addPassword(event.target.value)),
+		addName: (evnet) => dispatch(addName(evnet.target.value)),
+		postRequestRegister: (email, passowrd, name, onRouteChangeFunc) =>
+			dispatch(requestRegister(email, passowrd, name, onRouteChangeFunc)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

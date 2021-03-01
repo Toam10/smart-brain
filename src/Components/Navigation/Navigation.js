@@ -1,6 +1,6 @@
 import React from "react";
 import "./Navigation.css";
-export const Navigation = ({ onRouteChange, isSignIn, route }) => {
+export const Navigation = ({ onRouteChange, route }) => {
 	if (route === "home") {
 		return (
 			<div>
