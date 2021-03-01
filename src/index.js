@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
 	requsetSigninReducer,
 	registerReducer,
 });
-const store = createStore(rootReducer, applyMiddleware(thunkMiddelware, logger));
+const store = createStore(rootReducer, applyMiddleware(thunkMiddelware));
 
 ReactDOM.render(
 	<Provider store={store}>
